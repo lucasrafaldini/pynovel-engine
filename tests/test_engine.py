@@ -5,10 +5,6 @@ from engine import Story, States
 from errors.story import StoryCohesionError
 from configs import config
 from unittest import mock
-from unittest import mock
-from handlers.screen import ScreenHandler
-from builders.menu import MenuBuilder
-
 
 class StoryTest(TestCase):
 
