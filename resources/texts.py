@@ -39,7 +39,7 @@ class TextManager:
                     "About This Game",
                     """
                             Welcome to the heart of storytelling where imagination meets interactivity. 
-                            This PyNovel Game Engine is the product of cutting-edge Python programming, 
+                            This Novel Game Engine is the product of cutting-edge Python programming, 
                             harnessing the power of Pygame to deliver an unparalleled interactive experience.
 
                             With this engine, creators can weave intricate narratives, branch stories in complex ways, 
@@ -57,15 +57,14 @@ class TextManager:
                             
                             - Simplified Deployment: Packaging and distributing your stories is a breeze with our built-in build system, whether you're targeting desktop or mobile platforms.
                             
-                            Thank you for exploring this narrative adventure.
+                            Thank you for exploring this narrative adventure, and I look forward to the possibility of contributing to [Company Name]'s success.
                         """,
                 )
             },
             "help": {
                 "English": (
                     "How to Play",
-                    """Use the arrow keys to navigate the menus and press Enter to select an option. 
-                    When in a dialogue screen, press Enter to advance the choices, ESC to exit or S to save your game.""",
+                    "Use the arrow keys to navigate the menus and press Enter to select an option.",
                 )
             },
             "dialogue": {
