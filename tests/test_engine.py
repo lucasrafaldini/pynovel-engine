@@ -17,9 +17,9 @@ class StoryTest(TestCase):
 
     def test_check_story(self):
 
-        self.story.add_scene("scene1", "This is the first scene")
-        self.story.add_choice("scene1", "choice1", "end_scene")
-        self.story.add_choice("scene1", "choice2", "scene1")
+        self.story.add_scene("start", "This is the first scene")
+        self.story.add_choice("start", "choice1", "end_scene")
+        self.story.add_choice("start", "choice2", "start")
 
         self.assertEqual(self.story.check_story(), None)
 
