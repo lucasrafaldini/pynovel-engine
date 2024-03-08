@@ -1,11 +1,11 @@
-import subprocess
 import os
+import subprocess
 from unittest import TestCase
 
 from pytest import MonkeyPatch
-from configs import config
-from cli import build_visual_novel
 
+from cli import build_visual_novel
+from configs import config
 
 
 class TestCli(TestCase):
@@ -17,9 +17,7 @@ class TestCli(TestCase):
         self.resolutions = ["hd", "fullhd", "4k"]
         self.languages = ["en", "es"]
 
-
     def test_build_visual_novel(self):
-        
 
         with MonkeyPatch().context() as m:
             m.setattr(subprocess, "run", lambda *args, **kwargs: None)
@@ -27,8 +25,13 @@ class TestCli(TestCase):
             m.setattr(config, "resolution", "hd")
 
             # assert it doesn't raise an error and return None
-            self.assertEqual(build_visual_novel(self.source_dir,
-                                                self.output_dir,
-                                                self.platforms,
-                                                self.resolutions,
-                                                self.languages), None)
+            self.assertEqual(
+                build_visual_novel(
+                    self.source_dir,
+                    self.output_dir,
+                    self.platforms,
+                    self.resolutions,
+                    self.languages,
+                ),
+                None,
+            )
