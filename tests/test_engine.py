@@ -9,7 +9,7 @@ from errors.story import StoryCohesionError
 class StoryTest(TestCase):
 
     def setUp(self):
-        self.story = Story()
+        self.story = Story(no_translation=True)
         self.screen_handler = MagicMock()
         self.menu_builder = MagicMock()
         self.states = States()
