@@ -31,7 +31,7 @@ class TextManager:
             }
     """
 
-    def __init__(self):
+    def __init__(self, no_translation=False):
         self.static_texts = {
             "menu_items": {"English": ["Start", "Load", "About", "Help", "Quit"]},
             "about": {
@@ -71,68 +71,69 @@ class TextManager:
                 "English": ("Exit now", "Save"),
             },
         }
-        for language in config.languages:
-            self.static_texts["menu_items"][language] = [
-                translator.translate(
-                    item,
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text
-                for item in self.static_texts["menu_items"]["English"]
-            ]
+        if not no_translation:
+            for language in config.languages:
+                self.static_texts["menu_items"][language] = [
+                    translator.translate(
+                        item,
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text
+                    for item in self.static_texts["menu_items"]["English"]
+                ]
 
-            self.static_texts["about"][language] = (
-                translator.translate(
-                    self.static_texts["about"]["English"][0],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-                translator.translate(
-                    self.static_texts["about"]["English"][1],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-            )
+                self.static_texts["about"][language] = (
+                    translator.translate(
+                        self.static_texts["about"]["English"][0],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                    translator.translate(
+                        self.static_texts["about"]["English"][1],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                )
 
-            self.static_texts["help"][language] = (
-                translator.translate(
-                    self.static_texts["help"]["English"][0],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-                translator.translate(
-                    self.static_texts["help"]["English"][1],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-            )
+                self.static_texts["help"][language] = (
+                    translator.translate(
+                        self.static_texts["help"]["English"][0],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                    translator.translate(
+                        self.static_texts["help"]["English"][1],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                )
 
-            self.static_texts["dialogue"][language] = (
-                translator.translate(
-                    self.static_texts["dialogue"]["English"][0],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-                translator.translate(
-                    self.static_texts["dialogue"]["English"][1],
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
-            )
+                self.static_texts["dialogue"][language] = (
+                    translator.translate(
+                        self.static_texts["dialogue"]["English"][0],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                    translator.translate(
+                        self.static_texts["dialogue"]["English"][1],
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                )
 
 
 TextManagerInstance = TextManager()

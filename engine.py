@@ -29,7 +29,7 @@ class States:
 
 
 class Story:
-    def __init__(self, states: States=States(), config: Config = config) -> None:
+    def __init__(self, states: States=States(), config: Config = config, no_translation=False) -> None:
         """
         Initialize the Story class.
 
@@ -65,6 +65,7 @@ class Story:
         pygame.display.set_caption(title=self.caption, icontitle=self.caption)
         self.menu_font = pygame.font.Font(None, self.menu_font_size)
         self.popup_info = None
+        self.no_translation = no_translation
 
     def run(self) -> None:
         # Check if the story has been defined and if it has a ending
@@ -109,17 +110,26 @@ class Story:
 
     def add_scene(self, scene_name: str, description: str, character_name:str="", image: str ='boilerplate.png') -> None:
         image = f'{self.config.image_path}{image}'
-        for language in self.languages:
-            if language not in self.scenes:
-                self.scenes[language] = {}
-            self.scenes[language][scene_name] = {
-                "description": translator.translate(
-                    description,
-                    src="en",
-                    dest=list(config.available_languages.keys())[
-                        list(config.available_languages.values()).index(language)
-                    ],
-                ).text,
+        if not self.no_translation:
+            for language in self.languages:
+                if language not in self.scenes:
+                    self.scenes[language] = {}
+                self.scenes[language][scene_name] = {
+                    "description": translator.translate(
+                        description,
+                        src="en",
+                        dest=list(config.available_languages.keys())[
+                            list(config.available_languages.values()).index(language)
+                        ],
+                    ).text,
+                    "image": image,
+                    "character_name": character_name,
+                }
+        else:
+            if "English" not in self.scenes:
+                    self.scenes["English"] = {}
+            self.scenes["English"][scene_name] = {
+                "description": description,
                 "image": image,
                 "character_name": character_name,
             }
@@ -136,38 +146,52 @@ class Story:
         Returns:
             None
         """
-        for language in self.languages:
-            if language not in self.choices:
-                self.choices[language] = {}
-            if scene in self.choices[language]:
-                self.choices[language][scene].append(
-                    (
-                        translator.translate(
-                            choice,
-                            src="en",
-                            dest=list(config.available_languages.keys())[
-                                list(config.available_languages.values()).index(
-                                    language
-                                )
-                            ],
-                        ).text,
-                        next_scene,
+        if not self.no_translation:
+            for language in self.languages:
+                if language not in self.choices:
+                    self.choices[language] = {}
+                if scene in self.choices[language]:
+                    self.choices[language][scene].append(
+                        (
+                            translator.translate(
+                                choice,
+                                src="en",
+                                dest=list(config.available_languages.keys())[
+                                    list(config.available_languages.values()).index(
+                                        language
+                                    )
+                                ],
+                            ).text,
+                            next_scene,
+                        )
                     )
+                else:
+                    if "English" not in self.choices:
+                        self.choices[language] = {}
+                    self.choices[language][scene] = [
+                        (
+                            translator.translate(
+                                choice,
+                                src="en",
+                                dest=list(config.available_languages.keys())[
+                                    list(config.available_languages.values()).index(
+                                        language
+                                    )
+                                ],
+                            ).text,
+                            next_scene,
+                        )
+                    ]
+        else:
+            if "English" not in self.choices:
+                self.choices["English"] = {}
+            if scene in self.choices["English"]:
+                self.choices["English"][scene].append(
+                    (choice, next_scene)
                 )
             else:
-                self.choices[language][scene] = [
-                    (
-                        translator.translate(
-                            choice,
-                            src="en",
-                            dest=list(config.available_languages.keys())[
-                                list(config.available_languages.values()).index(
-                                    language
-                                )
-                            ],
-                        ).text,
-                        next_scene,
-                    )
+                self.choices["English"][scene] = [
+                    (choice, next_scene)
                 ]
 
     def screen_manager(self) -> None:
