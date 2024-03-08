@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 def setup_pynovel_engine():
     """
-    Set up the visual novel engine package.
+    Set up the pynovel engine package.
 
     This function sets up the necessary information for packaging and distributing
     the visual novel engine package. It includes the package name, version, description,

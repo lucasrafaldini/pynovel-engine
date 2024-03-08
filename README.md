@@ -12,11 +12,11 @@ PyNovel Engine is a Python-powered game engine designed to create interactive vi
 
 ## Installation
 
-To install the Visual Novel Engine, you can use the following command:
+To install the PyNovel Engine, you can use the following command:
 
 ```bash
-pip install visual_novel_engine
-pip install visual_novel_engine_cli
+pip install pynovel_engine
+pip install pynovel_engine_cli
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ To start the visual novel engine, use the following command:
 
 ```bash
 
-visual_novel_engine_cli
+pynovel_engine_cli
 ```
 
 ## Building a Visual Novel
@@ -34,17 +34,21 @@ visual_novel_engine_cli
 To build your visual novel project into an executable, navigate to your project directory and run:
 
 ```bash
-visual_novel_engine_cli --build ./main.py .
+pynovel_engine_cli build --platforms=windows,linux --resolutions=hd,fullhd,4k --languages=en,pt,fr,es,de ./main.py .
 ```
-    ./main.py is the path to the Python script that serves as the entry point for your visual novel.
-    The second argument . is the directory where the built executable will be placed. You can replace this with any output directory you prefer.
+- build: Command to build the visual novel project.
+- --platforms: The platforms for which the visual novel will be built. You can specify multiple platforms separated by commas. The available platforms are windows and linux.
+-  --resolutions: The resolutions for which the visual novel will be built. You can specify multiple resolutions separated by commas. The available resolutions are hd, fullhd, and 4k.
+-  --languages: The languages in which the visual novel will be built. You can specify multiple languages separated by commas. The available languages are en, pt, fr, es, and de, but you can add more languages at the config file.
+- ./main.py: The entry point of the visual novel project.
+- .: The directory where you want to save the built visual novel.
 
 ## Additional Commands
 
 To get help on the CLI usage, run:
 
 ```bash
-visual_novel_engine_cli --help
+pynovel_engine_cli --help
 ```
 
 
@@ -53,13 +57,27 @@ visual_novel_engine_cli --help
 If you wish to contribute or customize the engine, clone the repository and install the package in editable mode:
 
 ```bash
-git clone https://github.com/lucasrafaldini/visual_novel_engine.git
-cd visual_novel_engine
+git clone https://github.com/lucasrafaldini/pynovel_engine.git
+cd pynovel_engine
 pip install -e .
 ```
 
+## Testing
+
+There are unit tests for each of the components of the game, but you need to take some cautions.
+Because of incompatibilities between the googletrans library and the latest httpx library, the tests raise some warnings (but those are expected).
+
+We can't update the httpx lib to remove those warning because the googletrans library is not compatible with the latest version of httpx.
+
+To run the tests, you can use the following command:
+
+```bash
+python3 -m pytest tests --disable-warnings
+```
 
 ## Expected errors
+
+For errors/warnings on tests, please read the Testing section.
 
 Some build/execution errors are expected in some cases, such as:
 
@@ -71,6 +89,8 @@ This error occurs when the engine is translating its text. All translation opera
 
 ## Future Enhancements
 
+- [ ] **Add validation for Story to have a start scene**: Add validation to ensure that the story has a start scene, preventing creators from creating visual novels without a starting point.
+- [ ] **Customizable Text Speed**: Allow players to adjust the speed at which text is displayed on the screen, catering to different reading speeds and preferences.
 - [ ] **Change Tooltip Text on Game Icon (currently "Python")**: Change the tooltip text that appears when hovering over the game icon in the taskbar to reflect the name of the visual novel being played.
 - [ ] **Add custom loggers (replace prints)**: Add custom loggers to the engine to allow creators to log custom messages and errors.
 - [ ] **Encode The Save File**: Encrypt the save file to prevent players from modifying it and cheating the game.
