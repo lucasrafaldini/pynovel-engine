@@ -109,7 +109,9 @@ class Story:
                     if choice[1] == "start":
                         has_start = True
 
-        if not all([self.scenes, self.choices, has_end, has_start, has_multiple_choices]):
+        if not all(
+            [self.scenes, self.choices, has_end, has_start, has_multiple_choices]
+        ):
             raise StoryCohesionError
         print("Story is cohesive")
 
