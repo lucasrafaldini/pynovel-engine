@@ -1,10 +1,13 @@
 from typing import TYPE_CHECKING
+
 import pygame
+
 from builders.popup import PopupBuilder
 from managers.save_manager import CantSaveGame, SaveAndLoadManager
 
 if TYPE_CHECKING:
     from engine import Story
+
 
 class ScreenHandler:
     """
@@ -36,7 +39,7 @@ class ScreenHandler:
         """
         screen.fill(bg_color)
 
-    def handle_about_screen(story: 'Story', event: pygame.event.Event) -> None:
+    def handle_about_screen(story: "Story", event: pygame.event.Event) -> None:
         """
         Handles events for the about screen.
 
@@ -56,7 +59,7 @@ class ScreenHandler:
                         story.current_game_state = story.possible_game_states.main_menu
                         story.active_item_index = 0
 
-    def handle_help_screen(story: 'Story', event: pygame.event.Event) -> None:
+    def handle_help_screen(story: "Story", event: pygame.event.Event) -> None:
         """
         Handles events for the help screen.
 
@@ -76,7 +79,7 @@ class ScreenHandler:
                         story.current_game_state = story.possible_game_states.main_menu
                         story.active_item_index = 0
 
-    def handle_game_dialogue_screen(story: 'Story', event: pygame.event.Event) -> None:
+    def handle_game_dialogue_screen(story: "Story", event: pygame.event.Event) -> None:
         """
         Handles events for the game dialogue screen.
 
@@ -97,14 +100,18 @@ class ScreenHandler:
                     case pygame.K_s:
                         try:
                             SaveAndLoadManager.save_game(story.current_scene)
-                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_success")
+                            story.popup_info = PopupBuilder.init_popup(
+                                story.screen, mode="save_success"
+                            )
                         except CantSaveGame as exc:
                             print(exc)
-                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_error") 
+                            story.popup_info = PopupBuilder.init_popup(
+                                story.screen, mode="save_error"
+                            )
                     case pygame.K_RETURN:
                         story.current_game_state = "in_choice"
 
-    def handle_game_choice_screen(story: 'Story', event: pygame.event.Event) -> None:
+    def handle_game_choice_screen(story: "Story", event: pygame.event.Event) -> None:
         """
         Handle the game choice screen based on the given event.
 
@@ -125,10 +132,14 @@ class ScreenHandler:
                     case pygame.K_s:
                         try:
                             SaveAndLoadManager.save_game(story.current_scene)
-                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_success")
+                            story.popup_info = PopupBuilder.init_popup(
+                                story.screen, mode="save_success"
+                            )
                         except CantSaveGame as exc:
                             print(exc)
-                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_error")
+                            story.popup_info = PopupBuilder.init_popup(
+                                story.screen, mode="save_error"
+                            )
                     case pygame.K_UP:
                         story.active_item_index = (story.active_item_index - 1) % len(
                             story.choices[story.selected_language][story.current_scene]

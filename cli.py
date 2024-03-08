@@ -46,9 +46,15 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
 
     for platform in platforms:
         for resolution in resolutions:
-            config.resolution = resolution if resolution in config.available_resolutions else "hd"
-            dist_path = os.path.join(output_dir, f"dist_{platform.lower()}_{resolution.lower()}")
-            work_path = os.path.join(output_dir, f"build_{platform.lower()}_{resolution.lower()}")
+            config.resolution = (
+                resolution if resolution in config.available_resolutions else "hd"
+            )
+            dist_path = os.path.join(
+                output_dir, f"dist_{platform.lower()}_{resolution.lower()}"
+            )
+            work_path = os.path.join(
+                output_dir, f"build_{platform.lower()}_{resolution.lower()}"
+            )
             os.makedirs(dist_path, exist_ok=True)
             os.makedirs(work_path, exist_ok=True)
             match platform.lower():
@@ -56,7 +62,7 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
                     # Linux build command
                     pyinstaller_args = [
                         "pyinstaller",
-                        "--name=%s" % f'{config.caption}_Linux',
+                        "--name=%s" % f"{config.caption}_Linux",
                         "--onefile",
                         "--windowed",
                         "--distpath=%s" % dist_path,
@@ -69,7 +75,7 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
                     pyinstaller_args = [
                         "wine",
                         "pyinstaller",
-                        "--name=%s" % f'{config.caption}_Windows',
+                        "--name=%s" % f"{config.caption}_Windows",
                         "--onefile",
                         "--windowed",
                         "--distpath=%s" % dist_path,
@@ -82,6 +88,7 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
                         f"Platform {platform} is not supported for direct building from this script."
                     )
 
+
 def main():
     parser = argparse.ArgumentParser(description="Your Visual Novel Game Engine CLI")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -92,7 +99,11 @@ def main():
         help="Comma-separated list of platforms (windows,linux)",
         required=True,
     )
-    build_parser.add_argument('--resolutions', help='Comma-separated list of resolutions (hd,fullhd,4k)', required=True)
+    build_parser.add_argument(
+        "--resolutions",
+        help="Comma-separated list of resolutions (hd,fullhd,4k)",
+        required=True,
+    )
     build_parser.add_argument(
         "--languages", help="Comma-separated list of languages (en,pt)", required=True
     )

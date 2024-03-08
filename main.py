@@ -1,4 +1,5 @@
 import argparse
+
 from engine import Story
 
 """
@@ -36,21 +37,32 @@ story = Story()
 
 # Defina o início da história
 story.add_scene(
-    scene_name="start", description="You wake up in a mysterious room.", character_name="Doggo", image="doggo.png"
+    scene_name="start",
+    description="You wake up in a mysterious room.",
+    character_name="Doggo",
+    image="doggo.png",
 )
 # Then, add choices
 story.add_choice("start", "Go through the door", "door_scene")
 story.add_choice("start", "Look out the window", "door_scene")
 
 # Cena 2
-story.add_scene(scene_name="door_scene", description="You find a hallway.", character_name="Doggo", image="doggo.png")
+story.add_scene(
+    scene_name="door_scene",
+    description="You find a hallway.",
+    character_name="Doggo",
+    image="doggo.png",
+)
 # Escolhas para a cena 2
 story.add_choice("door_scene", "Go to the right", "window_scene")
 story.add_choice("door_scene", "Go to the left", "start")
 
 # Cena 3
 story.add_scene(
-    scene_name="window_scene", description="You see a garden below.", character_name="Doggo", image="doggo.png"
+    scene_name="window_scene",
+    description="You see a garden below.",
+    character_name="Doggo",
+    image="doggo.png",
 )
 # Escolhas para a cena 3
 story.add_choice("window_scene", "Get out of here", "end_scene")
@@ -61,7 +73,9 @@ if __name__ == "__main__":
     # If it has the parameter check_cohesion=True, it will check if the story is cohesive.
     # If it is not, it will raise a StoryCohesionError.
     argparser = argparse.ArgumentParser(description="PyNovel Game Engine CLI")
-    argparser.add_argument("--check-cohesion", action="store_true", help="Check if the story is cohesive")
+    argparser.add_argument(
+        "--check-cohesion", action="store_true", help="Check if the story is cohesive"
+    )
     args = argparser.parse_args()
     if args.check_cohesion:
         story.check_story()

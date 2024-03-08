@@ -22,12 +22,12 @@ class Config:
     """
 
     def __init__(self):
-        self.available_resolutions: List[str] = ['hd', 'fullhd', '4k']
+        self.available_resolutions: List[str] = ["hd", "fullhd", "4k"]
 
         # You can change the default resolution of the game here
-        self.resolution: str = 'hd'
-        self.image_path: str = f'./resources/images/{self.resolution}/'
-        self.game_icon: str = f'{self.image_path}icon.png'
+        self.resolution: str = "hd"
+        self.image_path: str = f"./resources/images/{self.resolution}/"
+        self.game_icon: str = f"{self.image_path}icon.png"
 
         # You can change the colors of the game here
         self.colors: Dict[str, tuple[int, int, int]] = {
@@ -71,42 +71,42 @@ class Config:
 
         # You can change the popup settings here
         self.popup_settings: Dict[str, Dict[str, any]] = {
-            'save_success': {
-                'message': 'Game saved successfully!',
-                'position': (self.width // 2, self.height // 4),
-                'duration': 3,
-                'text_color': self.colors["green"],
-                'bg_color': self.colors["black"],
-                'font_size': 60,
-                'alpha': 128
+            "save_success": {
+                "message": "Game saved successfully!",
+                "position": (self.width // 2, self.height // 4),
+                "duration": 3,
+                "text_color": self.colors["green"],
+                "bg_color": self.colors["black"],
+                "font_size": 60,
+                "alpha": 128,
             },
-            'save_failed': {
-                'message': 'Failed to save game!',
-                'position': (self.width // 2, self.height // 4),
-                'duration': 3,
-                'text_color': self.colors["red"],
-                'bg_color': self.colors["black"],
-                'font_size': 60,
-                'alpha': 128
+            "save_failed": {
+                "message": "Failed to save game!",
+                "position": (self.width // 2, self.height // 4),
+                "duration": 3,
+                "text_color": self.colors["red"],
+                "bg_color": self.colors["black"],
+                "font_size": 60,
+                "alpha": 128,
             },
-            'load_success': {
-                'message': 'Game loaded successfully!',
-                'position': (self.width // 2, self.height // 4),
-                'duration': 3,
-                'text_color': self.colors["green"],
-                'bg_color': self.colors["black"],
-                'font_size': 60,
-                'alpha': 128
+            "load_success": {
+                "message": "Game loaded successfully!",
+                "position": (self.width // 2, self.height // 4),
+                "duration": 3,
+                "text_color": self.colors["green"],
+                "bg_color": self.colors["black"],
+                "font_size": 60,
+                "alpha": 128,
             },
-            'load_failed': {
-                'message': 'Failed to load game!',
-                'position': (self.width // 2, self.height // 4),
-                'duration': 3,
-                'text_color': self.colors["red"],
-                'bg_color': (0, 0, 0),
-                'font_size': 60,
-                'alpha': 128
-            }
+            "load_failed": {
+                "message": "Failed to load game!",
+                "position": (self.width // 2, self.height // 4),
+                "duration": 3,
+                "text_color": self.colors["red"],
+                "bg_color": (0, 0, 0),
+                "font_size": 60,
+                "alpha": 128,
+            },
         }
 
 

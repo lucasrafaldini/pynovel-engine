@@ -1,9 +1,10 @@
 import os
 import shutil
 from unittest import TestCase, mock
-import pygame
-from engine import Story
 
+import pygame
+
+from engine import Story
 from handlers.screen import ScreenHandler
 
 
@@ -17,10 +18,9 @@ class TestScreenHandler(TestCase):
         self.story.add_choice("start", "choice2", "end_scene")
 
     def tearDown(self) -> None:
-        if os.path.exists('saved_games'):
-            shutil.rmtree('saved_games')
+        if os.path.exists("saved_games"):
+            shutil.rmtree("saved_games")
         return super().tearDown()
-
 
     def test_clear_screen(self):
         screen = mock.Mock(spec=pygame.Surface)
@@ -42,7 +42,9 @@ class TestScreenHandler(TestCase):
 
         self.screen_handler.handle_about_screen(self.story, event)
 
-        self.assertEqual(self.story.current_game_state, self.story.possible_game_states.main_menu)
+        self.assertEqual(
+            self.story.current_game_state, self.story.possible_game_states.main_menu
+        )
         self.assertEqual(self.story.active_item_index, 0)
 
     def test_handle_help_screen_quit_event(self):
@@ -51,13 +53,15 @@ class TestScreenHandler(TestCase):
         self.screen_handler.handle_help_screen(self.story, event)
 
         self.assertFalse(self.story.running)
-    
+
     def test_handle_help_screen_escape_key(self):
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE)
 
         self.screen_handler.handle_help_screen(self.story, event)
 
-        self.assertEqual(self.story.current_game_state, self.story.possible_game_states.main_menu)
+        self.assertEqual(
+            self.story.current_game_state, self.story.possible_game_states.main_menu
+        )
         self.assertEqual(self.story.active_item_index, 0)
 
     def test_handle_game_dialogue_screen_quit_event(self):
@@ -88,7 +92,7 @@ class TestScreenHandler(TestCase):
         self.screen_handler.handle_game_dialogue_screen(self.story, event)
 
         self.assertTrue(self.story.running)
-        self.assertTrue(os.path.exists('saved_games'))
+        self.assertTrue(os.path.exists("saved_games"))
 
     def test_handle_game_choice_screen_quit_event(self):
         event = pygame.event.Event(pygame.QUIT)
@@ -112,8 +116,3 @@ class TestScreenHandler(TestCase):
 
         self.assertTrue(self.story.running)
         self.assertNotEqual(self.story.current_game_state, "in_choice")
-
-    
-    
-
-    

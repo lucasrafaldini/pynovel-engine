@@ -1,10 +1,10 @@
-from unittest import TestCase
-from unittest import mock
+from unittest import TestCase, mock
 from unittest.mock import MagicMock
-from engine import Story, States
-from errors.story import StoryCohesionError
+
 from configs import config
-from unittest import mock
+from engine import States, Story
+from errors.story import StoryCohesionError
+
 
 class StoryTest(TestCase):
 
@@ -44,33 +44,33 @@ class StoryTest(TestCase):
         self.story.add_scene(expected_scene[0], expected_scene[1])
 
         # languages = self.config.languages
-        
+
         self.assertEqual(list(self.story.scenes.keys()), ["English"])
         # for language in languages:
         #     self.assertEqual(list(self.story.scenes[language].keys())[0], expected_scene[0])
 
-    @mock.patch('builders.menu.MenuBuilder.build_language_menu')
+    @mock.patch("builders.menu.MenuBuilder.build_language_menu")
     def test_screen_manager_language_menu_flow(self, mock_build_language_menu):
         self.story.current_game_state = self.states.language_menu
         self.story.screen_manager()
 
         mock_build_language_menu.assert_any_call()
 
-    @mock.patch('builders.menu.MenuBuilder.build_main_menu')
+    @mock.patch("builders.menu.MenuBuilder.build_main_menu")
     def test_screen_manager_main_menu_flow(self, mock_build_main_menu):
         self.story.current_game_state = self.states.main_menu
         self.story.screen_manager()
 
         mock_build_main_menu.assert_any_call()
 
-    @mock.patch('builders.screen.ScreenBuilder.build_about_screen')
+    @mock.patch("builders.screen.ScreenBuilder.build_about_screen")
     def test_screen_manager_language_menu_flow(self, mock_build_about_screen):
         self.story.current_game_state = self.states.about
         self.story.screen_manager()
 
         mock_build_about_screen.assert_any_call()
 
-    @mock.patch('builders.screen.ScreenBuilder.build_help_screen')
+    @mock.patch("builders.screen.ScreenBuilder.build_help_screen")
     def test_screen_manager_language_menu_flow(self, mock_build_help_screen):
         self.story.current_game_state = self.states.help
         self.story.screen_manager()

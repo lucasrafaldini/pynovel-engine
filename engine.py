@@ -3,15 +3,15 @@ from typing import List
 
 import pygame
 from googletrans import Translator
-from builders.popup import PopupBuilder
 
+from builders.menu import MenuBuilder
+from builders.popup import PopupBuilder
+from builders.screen import ScreenBuilder
 from configs import Config, config
 from errors.story import StoryCohesionError
-from resources.buttons import ChoicesButton
-from builders.menu import MenuBuilder
 from handlers.menu import MenuHandler
-from builders.screen import ScreenBuilder
 from handlers.screen import ScreenHandler
+from resources.buttons import ChoicesButton
 from resources.texts import TextManagerInstance
 
 translator = Translator()
@@ -29,7 +29,9 @@ class States:
 
 
 class Story:
-    def __init__(self, states: States=States(), config: Config = config, no_translation=False) -> None:
+    def __init__(
+        self, states: States = States(), config: Config = config, no_translation=False
+    ) -> None:
         """
         Initialize the Story class.
 
@@ -88,7 +90,7 @@ class Story:
         """
         Checks if the story has been defined and if it has a ending.
 
-        If the story has not been defined, if the choices weren't defined, if every scene doesn't have at least 2 choices or if the story 
+        If the story has not been defined, if the choices weren't defined, if every scene doesn't have at least 2 choices or if the story
         doesn't have an ending, it raises a StoryCohesionError.
 
         Returns:
@@ -108,8 +110,14 @@ class Story:
             raise StoryCohesionError
         print("Story is cohesive")
 
-    def add_scene(self, scene_name: str, description: str, character_name:str="", image: str ='boilerplate.png') -> None:
-        image = f'{self.config.image_path}{image}'
+    def add_scene(
+        self,
+        scene_name: str,
+        description: str,
+        character_name: str = "",
+        image: str = "boilerplate.png",
+    ) -> None:
+        image = f"{self.config.image_path}{image}"
         if not self.no_translation:
             for language in self.languages:
                 if language not in self.scenes:
@@ -127,7 +135,7 @@ class Story:
                 }
         else:
             if "English" not in self.scenes:
-                    self.scenes["English"] = {}
+                self.scenes["English"] = {}
             self.scenes["English"][scene_name] = {
                 "description": description,
                 "image": image,
@@ -186,13 +194,9 @@ class Story:
             if "English" not in self.choices:
                 self.choices["English"] = {}
             if scene in self.choices["English"]:
-                self.choices["English"][scene].append(
-                    (choice, next_scene)
-                )
+                self.choices["English"][scene].append((choice, next_scene))
             else:
-                self.choices["English"][scene] = [
-                    (choice, next_scene)
-                ]
+                self.choices["English"][scene] = [(choice, next_scene)]
 
     def screen_manager(self) -> None:
         """

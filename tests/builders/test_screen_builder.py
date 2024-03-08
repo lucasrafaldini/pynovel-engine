@@ -1,4 +1,5 @@
 from unittest import TestCase, mock
+
 import pygame
 
 from builders.screen import ScreenBuilder
@@ -15,7 +16,6 @@ class TestScreenBuilder(TestCase):
         self.story.add_choice("start", "choice2", "end_scene")
         self.screen_builder = ScreenBuilder(self.story)
 
-
     def test_build_about_screen(self):
         # Just assert no raises happen
         self.assertEqual(self.screen_builder.build_about_screen(), None)
@@ -25,13 +25,13 @@ class TestScreenBuilder(TestCase):
         self.assertEqual(self.screen_builder.build_help_screen(), None)
 
     def test_build_dialogue_screen(self):
-        self.screen_builder.story.scenes = self.story.scenes[self.story.selected_language] 
-        
+        self.screen_builder.story.scenes = self.story.scenes[
+            self.story.selected_language
+        ]
+
         # Just assert no raises happen
         self.assertEqual(self.screen_builder.build_dialogue_screen(), None)
 
     def test_build_choice_screen(self):
         # Just assert no raises happen
         self.assertEqual(self.screen_builder.build_choice_screen(), None)
-
-       

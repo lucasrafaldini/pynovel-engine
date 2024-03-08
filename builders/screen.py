@@ -1,16 +1,17 @@
 from typing import TYPE_CHECKING
 
 import pygame
+
 from configs import Config, config
 from resources.buttons import ChoicesButton, DialogueButton
 from resources.texts import TextManagerInstance
 
-
 if TYPE_CHECKING:
     from engine import Story
 
+
 class ScreenBuilder:
-    def __init__(self, story: 'Story', config: Config=config):
+    def __init__(self, story: "Story", config: Config = config):
         """
         Initializes a new instance of the Screens class.
 
@@ -120,7 +121,11 @@ class ScreenBuilder:
             None
         """
         current_scene = self.story.scenes[self.story.current_scene]
-        character_image, dialogue, character_name = current_scene["image"], current_scene["description"], current_scene["character_name"]
+        character_image, dialogue, character_name = (
+            current_scene["image"],
+            current_scene["description"],
+            current_scene["character_name"],
+        )
 
         self.screen.fill(self.config.colors["white"])
 
@@ -212,7 +217,12 @@ class ScreenBuilder:
             tuple: A tuple containing the choice buttons and the active item index.
         """
         self.screen.fill(self.config.colors["white"])
-        choices_list = [item[0] for item in self.story.choices[self.story.selected_language][self.story.current_scene]]
+        choices_list = [
+            item[0]
+            for item in self.story.choices[self.story.selected_language][
+                self.story.current_scene
+            ]
+        ]
         for i, choice in enumerate(choices_list):
             button = ChoicesButton(
                 self.screen,

@@ -1,6 +1,6 @@
-from unittest import TestCase
-from unittest import mock
+from unittest import TestCase, mock
 from unittest.mock import MagicMock
+
 from resources.buttons import ChoicesButton, DialogueButton
 
 
@@ -20,11 +20,11 @@ class TestButtons(TestCase):
         self.width = 100
         self.height = 100
         self.text = "Test"
-    
+
     @mock.patch("pygame.draw.rect")
     def test_dialogue_button(self, mock_draw_rect):
         mock_draw_rect.return_value = MagicMock()
-        
+
         button = DialogueButton(
             self.screen,
             self.color,
@@ -42,7 +42,7 @@ class TestButtons(TestCase):
     @mock.patch("pygame.draw.rect")
     def test_choices_button(self, mock_draw_rect):
         mock_draw_rect.return_value = MagicMock()
-        
+
         button = ChoicesButton(
             self.screen,
             self.color,

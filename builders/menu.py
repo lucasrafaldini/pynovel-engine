@@ -1,14 +1,15 @@
-from typing import Dict, List, TYPE_CHECKING
+from typing import TYPE_CHECKING, Dict, List
+
 import pygame
 
 from configs import Config, config
 
-
 if TYPE_CHECKING:
     from engine import Story
 
+
 class MenuBuilder:
-    def __init__(self, story: 'Story', config=config):
+    def __init__(self, story: "Story", config=config):
         """
         Initializes a Menu object.
 
@@ -44,8 +45,12 @@ class MenuBuilder:
         self.active_item_color: tuple[int, int, int] = self.colors["active_pink"]
         self.menu_font_size: int = self.config.sizes["medium"]
         self.menu_items: List[str] = self.story.menu_items
-        self.language_menu_font: pygame.font.Font = pygame.font.Font(None, self.menu_font_size)
-        self.main_menu_font: pygame.font.Font = pygame.font.Font(None, self.menu_font_size)
+        self.language_menu_font: pygame.font.Font = pygame.font.Font(
+            None, self.menu_font_size
+        )
+        self.main_menu_font: pygame.font.Font = pygame.font.Font(
+            None, self.menu_font_size
+        )
 
     def build_language_menu(self) -> None:
         """

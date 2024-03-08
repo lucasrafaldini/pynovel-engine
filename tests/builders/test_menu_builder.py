@@ -1,5 +1,7 @@
 from unittest import TestCase, mock
+
 import pygame
+
 from builders.menu import MenuBuilder
 from engine import Story
 
@@ -17,6 +19,3 @@ class TestMenuBuilder(TestCase):
 
         # Just assert no raises happen
         self.assertEqual(self.menu_builder.build_main_menu(), None)
-
-
-
