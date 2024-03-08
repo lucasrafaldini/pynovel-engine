@@ -69,7 +69,7 @@ story.add_choice("window_scene", "Get out of here", "end_scene")
 story.add_choice("window_scene", "Go back", "door_scene")
 
 
-if __name__ == "__main__":
+def main():
     # If it has the parameter check_cohesion=True, it will check if the story is cohesive.
     # If it is not, it will raise a StoryCohesionError.
     argparser = argparse.ArgumentParser(description="PyNovel Game Engine CLI")
@@ -81,3 +81,7 @@ if __name__ == "__main__":
         story.check_story()
     else:
         story.run()
+
+
+if __name__ == "__main__":
+    main()
