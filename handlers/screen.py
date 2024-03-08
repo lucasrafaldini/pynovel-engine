@@ -123,8 +123,12 @@ class ScreenHandler:
                     case pygame.K_ESCAPE:
                         story.running = False
                     case pygame.K_s:
-                        # implement save game
-                        pass
+                        try:
+                            SaveAndLoadManager.save_game(story.current_scene)
+                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_success")
+                        except CantSaveGame as exc:
+                            print(exc)
+                            story.popup_info = PopupBuilder.init_popup(story.screen, mode="save_error")
                     case pygame.K_UP:
                         story.active_item_index = (story.active_item_index - 1) % len(
                             story.choices[story.selected_language][story.current_scene]
