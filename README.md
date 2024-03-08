@@ -59,10 +59,17 @@ If you wish to contribute or customize the engine, clone the repository and inst
 ```bash
 git clone https://github.com/lucasrafaldini/pynovel_engine.git
 cd pynovel_engine
+pip install -r requirements.txt
 pip install -e .
 ```
 
 ## Testing
+
+If you want to test if your story is cohesive and has no errors, define your history in main.py and use the following command:
+
+```bash
+pynovel_engine --check-cohesion
+```
 
 There are unit tests for each of the components of the game, but you need to take some cautions.
 Because of incompatibilities between the googletrans library and the latest httpx library, the tests raise some warnings (but those are expected).
@@ -89,7 +96,7 @@ This error occurs when the engine is translating its text. All translation opera
 
 ## Future Enhancements
 
-- [ ] **Add validation for Story to have a start scene**: Add validation to ensure that the story has a start scene, preventing creators from creating visual novels without a starting point.
+- [ ] **Add validation for Story to have only one start scene**: Add validation to ensure that the story has just one start scene, preventing creators from creating visual novels with multiple starting points.
 - [ ] **Customizable Text Speed**: Allow players to adjust the speed at which text is displayed on the screen, catering to different reading speeds and preferences.
 - [ ] **Change Tooltip Text on Game Icon (currently "Python")**: Change the tooltip text that appears when hovering over the game icon in the taskbar to reflect the name of the visual novel being played.
 - [ ] **Add custom loggers (replace prints)**: Add custom loggers to the engine to allow creators to log custom messages and errors.

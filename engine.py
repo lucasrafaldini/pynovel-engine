@@ -96,6 +96,7 @@ class Story:
         Returns:
             None
         """
+        has_start = False
         has_end = False
         has_multiple_choices = True
         for lang in list(self.choices.values()):
@@ -105,8 +106,10 @@ class Story:
                 for choice in scene:
                     if choice[1] == "end_scene":
                         has_end = True
+                    if choice[1] == "start":
+                        has_start = True
 
-        if not all([self.scenes, self.choices, has_end, has_multiple_choices]):
+        if not all([self.scenes, self.choices, has_end, has_start, has_multiple_choices]):
             raise StoryCohesionError
         print("Story is cohesive")
 
