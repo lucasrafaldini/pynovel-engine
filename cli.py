@@ -1,8 +1,33 @@
 import argparse
+import json
 import os
 import subprocess
+from copy import deepcopy
 
 from configs import config
+
+
+def run_tests():
+    try:
+        subprocess.run(["python", "-m", "pytest", "tests"], check=True)
+    except subprocess.CalledProcessError:
+        print("Tests didn't passed. Aborting build.")
+        return
+
+
+def check_cohesion():
+    try:
+        subprocess.run(["python", "main.py", "--check-cohesion"], check=True)
+    except subprocess.CalledProcessError:
+        print("Story is not cohesive. Aborting build.")
+        return
+
+
+def format_code():
+    # Run isort before anything else
+    subprocess.run(["isort", "."], check=True)
+    # Run black then
+    subprocess.run(["black", "."], check=True)
 
 
 def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages):
@@ -25,24 +50,13 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
 
     # Make sure the story is cohesive
     # before building
-    try:
-        subprocess.run(["python", "main.py", "--check-cohesion"], check=True)
-    except subprocess.CalledProcessError:
-        print("Story is not cohesive. Aborting build.")
-        return
+    check_cohesion()
 
     # Run tests before building
-    try:
-        subprocess.run(["python", "-m", "pytest", "tests"], check=True)
-    except subprocess.CalledProcessError:
-        print("Tests didn't passed. Aborting build.")
-        return
+    run_tests()
 
     # Make sure the code is formatted before building
-    # Run isort before anything else
-    subprocess.run(["isort", "."], check=True)
-    # Run black then
-    subprocess.run(["black", "."], check=True)
+    format_code()
 
     for platform in platforms:
         for resolution in resolutions:
@@ -58,15 +72,31 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
             os.makedirs(dist_path, exist_ok=True)
             os.makedirs(work_path, exist_ok=True)
             match platform.lower():
+                case "macos":
+                    # MacOSx build command
+                    pyinstaller_args = [
+                        "pyinstaller",
+                        "--icon=%s" % f"{config.game_icon}.icns",
+                        "--name=%s" % f"{config.caption}_MacOSx",
+                        f"--add-data={config.image_path}*:./resources/images/{resolution}/",
+                        "--onefile",
+                        "--distpath=%s" % dist_path,
+                        "--workpath=%s" % work_path,
+                        "--windowed",
+                        source_dir,
+                    ]
+                    subprocess.run(pyinstaller_args, check=True)
                 case "linux":
                     # Linux build command
                     pyinstaller_args = [
                         "pyinstaller",
+                        "--icon=%s" % f"{config.game_icon}.png",
                         "--name=%s" % f"{config.caption}_Linux",
+                        f"--add-data={config.image_path}*:./resources/images/{resolution}/",
                         "--onefile",
-                        "--windowed",
                         "--distpath=%s" % dist_path,
                         "--workpath=%s" % work_path,
+                        "--windowed",
                         source_dir,
                     ]
                     subprocess.run(pyinstaller_args, check=True)
@@ -75,11 +105,13 @@ def build_visual_novel(source_dir, output_dir, platforms, resolutions, languages
                     pyinstaller_args = [
                         "wine",
                         "pyinstaller",
+                        "--icon=%s" % f"{config.game_icon}.png",
                         "--name=%s" % f"{config.caption}_Windows",
+                        f"--add-data={config.image_path}*:./resources/images/{resolution}/",
                         "--onefile",
-                        "--windowed",
                         "--distpath=%s" % dist_path,
                         "--workpath=%s" % work_path,
+                        "--windowed",
                         source_dir,
                     ]
                     subprocess.run(pyinstaller_args, check=True)
@@ -129,7 +161,11 @@ def main():
         platforms = args.platforms.split(",")
         resolutions = args.resolutions.split(",")
         build_visual_novel(
-            args.source_dir, args.output_dir, platforms, resolutions, languages
+            args.source_dir,
+            args.output_dir,
+            platforms,
+            resolutions,
+            languages,
         )
     else:
         print("Use --help to see available commands")
