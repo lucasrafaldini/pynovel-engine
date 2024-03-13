@@ -57,7 +57,7 @@ class TextManager:
                             
                             - Simplified Deployment: Packaging and distributing your stories is a breeze with our built-in build system, whether you're targeting desktop or mobile platforms.
                             
-                            Thank you for exploring this narrative adventure, and I look forward to the possibility of contributing to [Company Name]'s success.
+                            Thank you for exploring this narrative adventure!
                         """,
                 )
             },
