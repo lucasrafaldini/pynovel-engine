@@ -1,3 +1,5 @@
+import os
+import sys
 from typing import Dict, List
 
 
@@ -21,13 +23,23 @@ class Config:
         popup_settings (dict): A dictionary containing settings for different popup messages.
     """
 
+    def resource_path(self, relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
     def __init__(self):
         self.available_resolutions: List[str] = ["hd", "fullhd", "4k"]
 
         # You can change the default resolution of the game here
         self.resolution: str = "hd"
-        self.image_path: str = f"./resources/images/{self.resolution}/"
-        self.game_icon: str = f"{self.image_path}icon.png"
+        self.image_path: str = self.resource_path(
+            f"resources/images/{self.resolution}/"
+        )
+        self.game_icon: str = f"{self.image_path}icon"
 
         # You can change the colors of the game here
         self.colors: Dict[str, tuple[int, int, int]] = {
@@ -57,7 +69,7 @@ class Config:
         self.height: int = 768
 
         # You can change the caption of the game window here
-        self.caption: str = "PyNovel Engine"
+        self.caption: str = "PyNovel-Engine"
 
         # You can add or remove languages here
         self.available_languages: Dict[str, str] = {

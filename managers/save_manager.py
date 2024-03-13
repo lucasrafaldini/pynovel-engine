@@ -1,13 +1,19 @@
 import json
 import os
+import sys
 from datetime import datetime
 
-from configs import config
 from errors.saveandload import CantSaveGame, NoGameSaved
 
 
 class SaveAndLoadManager:
+
     def save_game(state: str, save_directory="saved_games") -> None:
+        # Lets create the folder inside the dist folder
+        # so the user can save the game in the same folder as the executable
+        # and the game will be able to find the saved games
+        save_directory = os.path.join(os.path.dirname(sys.executable), save_directory)
+
         # Create the save directory if it doesn't exist
         os.makedirs(save_directory, exist_ok=True)
 
@@ -29,6 +35,7 @@ class SaveAndLoadManager:
             raise CantSaveGame
 
     def load_game(save_directory="saved_games") -> str:
+        save_directory = os.path.join(os.path.dirname(sys.executable), save_directory)
         if not os.path.exists(save_directory):
             print("Save directory does not exist.")
             raise NoGameSaved

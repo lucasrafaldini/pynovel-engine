@@ -60,7 +60,7 @@ class Story:
         self.current_choice: str = None
         self.active_item_index: int = 0
         self.running: bool = True
-        self.game_icon = pygame.image.load(self.config.game_icon)
+        self.game_icon = pygame.image.load(f"{self.config.game_icon}.png")
         pygame.display.set_icon(self.game_icon)
         pygame.init()
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -70,9 +70,6 @@ class Story:
         self.no_translation = no_translation
 
     def run(self) -> None:
-        # Check if the story has been defined and if it has a ending
-        self.check_story()
-
         # Main game loop
         while self.running:
             self.screen_manager()
