@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 from unittest import TestCase, mock
 
 import pygame
@@ -18,8 +19,8 @@ class TestScreenHandler(TestCase):
         self.story.add_choice("start", "choice2", "end_scene")
 
     def tearDown(self) -> None:
-        if os.path.exists("saved_games"):
-            shutil.rmtree("saved_games")
+        if os.path.exists(os.path.join(os.path.dirname(sys.executable), "saved_games")):
+            shutil.rmtree(os.path.join(os.path.dirname(sys.executable), "saved_games"))
         return super().tearDown()
 
     def test_clear_screen(self):
@@ -92,7 +93,9 @@ class TestScreenHandler(TestCase):
         self.screen_handler.handle_game_dialogue_screen(self.story, event)
 
         self.assertTrue(self.story.running)
-        self.assertTrue(os.path.exists("saved_games"))
+        self.assertTrue(
+            os.path.exists(os.path.join(os.path.dirname(sys.executable), "saved_games"))
+        )
 
     def test_handle_game_choice_screen_quit_event(self):
         event = pygame.event.Event(pygame.QUIT)
