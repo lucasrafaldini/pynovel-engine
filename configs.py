@@ -76,8 +76,8 @@ class Config:
             "en": "English",
             "pt": "Portuguese",
             "es": "Spanish",
-            "fr": "French",
-            "de": "Deustch",
+            # "fr": "French",
+            # "de": "Deustch",
         }
         self.languages: List[str] = [lang for lang in self.available_languages.values()]
 

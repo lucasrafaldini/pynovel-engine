@@ -35,11 +35,11 @@ class MenuHandler:
                         story.running = False
                     case pygame.K_UP:
                         story.active_item_index = (story.active_item_index - 1) % len(
-                            story.menu_items
+                            story.menu_items[story.selected_language]
                         )
                     case pygame.K_DOWN:
                         story.active_item_index = (story.active_item_index + 1) % len(
-                            story.menu_items
+                            story.menu_items[story.selected_language]
                         )
                     case pygame.K_RETURN:
                         if (
