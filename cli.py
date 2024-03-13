@@ -136,9 +136,7 @@ def main():
         help="Comma-separated list of resolutions (hd,fullhd,4k)",
         required=True,
     )
-    build_parser.add_argument(
-        "--languages", help="Comma-separated list of languages (en,pt)", required=True
-    )
+
     build_parser.add_argument(
         "source_dir", help="Source directory of your visual novel"
     )
@@ -147,10 +145,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        languages = [
-            config.available_languages[lang] for lang in args.languages.split(",")
-        ]
-        config.languages = languages
+        languages = list(config.available_languages.values())
     except KeyError:
         print(
             f"Invalid language code. Available languages: {', '.join(config.available_languages.keys())}"

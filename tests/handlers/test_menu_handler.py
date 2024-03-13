@@ -36,7 +36,10 @@ class TestMenuHandler(TestCase):
 
         self.screen_handler.handle_main_menu(self.story, event)
 
-        self.assertEqual(self.story.active_item_index, len(self.story.menu_items) - 1)
+        self.assertEqual(
+            self.story.active_item_index,
+            len(self.story.menu_items[self.story.selected_language]) - 1,
+        )
 
     def test_handle_main_menu_down_key(self):
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)

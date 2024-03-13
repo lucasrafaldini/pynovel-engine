@@ -15,33 +15,40 @@ PyNovel Engine is a Python-powered game engine designed to create interactive vi
 To install the PyNovel Engine, you can use the following command:
 
 ```bash
-pip install pynovel_engine
-pip install pynovel_engine_cli
+git clone https://github.com/lucasrafaldini/pynovel_engine.git
+cd pynovel_engine
+pip install -r requirements.txt
+pip install -e .
 ```
 
-## Usage
-Running the Engine
-
-To start the visual novel engine, use the following command:
-
-```bash
-
-pynovel_engine_cli
-```
 
 ## Building a Visual Novel
 
 To build your visual novel project into an executable, navigate to your project directory and run:
 
 ```bash
-pynovel_engine_cli build --platforms=windows,linux --resolutions=hd,fullhd,4k --languages=en,pt,fr,es,de ./main.py .
+pynovel_engine_cli build --platforms=windows,linux --resolutions=hd,fullhd,4k  main.py .
 ```
 - build: Command to build the visual novel project.
 - --platforms: The platforms for which the visual novel will be built. You can specify multiple platforms separated by commas. The available platforms are windows and linux.
 -  --resolutions: The resolutions for which the visual novel will be built. You can specify multiple resolutions separated by commas. The available resolutions are hd, fullhd, and 4k.
--  --languages: The languages in which the visual novel will be built. You can specify multiple languages separated by commas. The available languages are en, pt, fr, es, and de, but you can add more languages at the config file.
-- ./main.py: The entry point of the visual novel project.
+- main.py: The entry point of the visual novel project.
 - .: The directory where you want to save the built visual novel.
+
+## Languages
+To set which languages the visual novel will support, please change the ```available_languages``` variable in the ```config.py``` file.
+
+Any language available on Google Translate can be used. The language code must be used to set the language in the ```available_languages``` variable.
+
+Example:
+```python
+self.available_languages = {
+    "en": "English",
+    "es": "Spanish",
+    ... add more languages
+}
+```
+
 
 ## Additional Commands
 
@@ -52,18 +59,7 @@ pynovel_engine_cli --help
 ```
 
 
-## Development
-
-If you wish to contribute or customize the engine, clone the repository and install the package in editable mode:
-
-```bash
-git clone https://github.com/lucasrafaldini/pynovel_engine.git
-cd pynovel_engine
-pip install -r requirements.txt
-pip install -e .
-```
-
-## Testing
+## Testing cohesion
 
 If you want to test if your story is cohesive and has no errors, define your history in main.py and use the following command:
 
@@ -72,15 +68,17 @@ pynovel_engine --check-cohesion
 ```
 
 There are unit tests for each of the components of the game, but you need to take some cautions.
-Because of incompatibilities between the googletrans library and the latest httpx library, the tests raise some warnings (but those are expected).
+Because of incompatibilities between the ```googletrans``` library and the latest ```httpx``` library, the tests raise some warnings (but those are expected).
 
-We can't update the httpx lib to remove those warning because the googletrans library is not compatible with the latest version of httpx.
+We can't update the httpx lib to remove those warning because the ```googletrans``` library is not compatible with the latest version of ```httpx```.
 
 To run the tests, you can use the following command:
 
 ```bash
 python3 -m pytest tests --disable-warnings
 ```
+
+Additionally, all tests are run in the build process, so you can be sure that your visual novel is cohesive and has no errors.
 
 ## Expected errors
 
